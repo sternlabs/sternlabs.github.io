@@ -1,0 +1,56 @@
+#+layout: post
+#+title: German Cheesecake
+#+date: 2014-10-20 01:07:23 +0200
+#+author: Simon Schubert
+#+comments: true
+#+categories: kitchen
+
+Recipe for a German cheesecake using /Quark/.  For a 26cm diameter baking pan.
+
+
+** Crust
+
+- 200g flour
+- 75g sugar
+- 60g butter
+- 7g baking powder
+- 1 egg
+- 1 pinch of salt
+
+Mix thoroughly.  Experience shows to best start with sugar + butter,
+then blend in the rest.  The dough will be /very/ dry; it should just
+stick together, but crumble apart easily.
+
+
+** Filling
+
+- 1kg low-fat quark
+- 400g milk
+- 90g oil (a small cup)
+- 200g sugar
+- 4 eggs
+- 1 pack [[http://www.oetker.de/unsere-produkte/gala/gala-bourbon-vanille.html][vanilla pudding]]
+- some drops of vanilla extract
+- 1 pack of lemon zest
+
+Blend all ingredients.  To avoid clumps, mix vanilla pudding and some
+milk separately first.  The filling will be liquid at this stage.
+
+
+** Synthesis
+
+Butter the baking pan, coat with flour or breadcrumbs.  Use
+approx. half of the dough for the bottom, and half for the sides.
+Pull the sides approx. 4cm high.  Now pour the filling into the raw
+crust.  Bake at 175°C for 75 minutes; if necessary, cover the top with
+aluminum foil or baking paper to prevent excessive browning.  Let the
+cake cool over night.  Tastes best after a day.
+
+
+** Discussion
+
+- The dough stretched quite thin first, but in the oven it expanded to the right size.
+- The crust came out too poofy for my preferences.
+- First day morning, room temperature: I did not quite enjoy the
+  texture of the filling.  The texture improved significantly when I
+  tried the refrigerated cake in the evening.
