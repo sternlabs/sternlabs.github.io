@@ -4,7 +4,7 @@
   <title><![CDATA[SternLabs]]></title>
   <link href="https://sternlabs.github.io/atom.xml" rel="self"/>
   <link href="https://sternlabs.github.io/"/>
-  <updated>2014-10-20T02:40:15+02:00</updated>
+  <updated>2014-10-20T03:12:22+02:00</updated>
   <id>https://sternlabs.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,12 +14,54 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Apple Cake]]></title>
+    <link href="https://sternlabs.github.io/blog/2014/10/20/apple-cake/"/>
+    <updated>2014-10-20T02:54:32+02:00</updated>
+    <id>https://sternlabs.github.io/blog/2014/10/20/apple-cake</id>
+    <content type="html"><![CDATA[ 
+<p>Recipe for apple cake.  For a 26cm diameter baking pan.</p>
+<!-- more -->
+<h2>Crust</h2>
+<ul>
+  <li>300g flour</li>
+  <li>150g butter</li>
+  <li>75g sugar</li>
+  <li>1 egg</li>
+  <li>pinch of salt</li>
+</ul>
+<p>Mix thoroughly.  Experience shows to best start with sugar + butter,
+  then blend in the rest.  The dough will be dry; it should just stick
+  together, but crumble apart easily.</p>
+<h2>Filling</h2>
+<ul>
+  <li>750ml apple juice (we juiced apples)</li>
+  <li>2 packs <a href="http://www.oetker.de/unsere-produkte/gala/gala-bourbon-vanille.html">vanilla pudding</a></li>
+  <li>65g sugar</li>
+  <li>some drops of vanilla extract</li>
+  <li>5-8 apples (to make 1.8l of filling)</li>
+</ul>
+<p>Prepare the vanilla pudding with the apple juice instead of milk: mix,
+  heat, etc.  Shred/grate apples into small pieces.  Mix the apple
+  shreds into the apple vanilla pudding (while still hot).  Add more
+  apples if you don&#8217;t have enough filling for your pan.</p>
+<h2>Synthesis</h2>
+<p>Butter the baking pan, coat with flour or breadcrumbs.  Use
+  approx. half of the dough for the bottom, and half for the sides.
+  Pull the sides approx. 4cm high.  Now pour the filling into the raw
+  crust.  Bake at 160°C for 60 minutes.  Let the cake cool over night.</p>
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[German Cheesecake]]></title>
     <link href="https://sternlabs.github.io/blog/2014/10/20/german-cheesecake/"/>
     <updated>2014-10-20T01:07:23+02:00</updated>
     <id>https://sternlabs.github.io/blog/2014/10/20/german-cheesecake</id>
     <content type="html"><![CDATA[ 
 <p>Recipe for a German cheesecake using <i>Quark</i>.  For a 26cm diameter baking pan.</p>
+<!-- more -->
 <h2>Crust</h2>
 <ul>
   <li>200g flour</li>
@@ -27,7 +69,7 @@
   <li>60g butter</li>
   <li>7g baking powder</li>
   <li>1 egg</li>
-  <li>1 pinch of salt</li>
+  <li>pinch of salt</li>
 </ul>
 <p>Mix thoroughly.  Experience shows to best start with sugar + butter,
   then blend in the rest.  The dough will be <i>very</i> dry; it should just
