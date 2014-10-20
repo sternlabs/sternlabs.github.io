@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[SternLabs]]></title>
-  <link href="https://sternlabs.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Kitchen | SternLabs]]></title>
+  <link href="https://sternlabs.github.io/blog/categories/kitchen/atom.xml" rel="self"/>
   <link href="https://sternlabs.github.io/"/>
   <updated>2014-10-20T02:38:47+02:00</updated>
   <id>https://sternlabs.github.io/</id>
@@ -18,9 +18,14 @@
     <link href="https://sternlabs.github.io/blog/2014/10/20/german-cheesecake/"/>
     <updated>2014-10-20T01:07:23+02:00</updated>
     <id>https://sternlabs.github.io/blog/2014/10/20/german-cheesecake</id>
-    <content type="html"><![CDATA[ 
+    <content type="html"><![CDATA[<p></p>
+
 <p>Recipe for a German cheesecake using <i>Quark</i>.  For a 26cm diameter baking pan.</p>
+
+
 <h2>Crust</h2>
+
+
 <ul>
   <li>200g flour</li>
   <li>75g sugar</li>
@@ -29,10 +34,16 @@
   <li>1 egg</li>
   <li>1 pinch of salt</li>
 </ul>
+
+
 <p>Mix thoroughly.  Experience shows to best start with sugar + butter,
   then blend in the rest.  The dough will be <i>very</i> dry; it should just
   stick together, but crumble apart easily.</p>
+
+
 <h2>Filling</h2>
+
+
 <ul>
   <li>1kg low-fat quark</li>
   <li>400g milk</li>
@@ -43,16 +54,26 @@
   <li>some drops of vanilla extract</li>
   <li>1 pack of lemon zest</li>
 </ul>
+
+
 <p>Blend all ingredients.  To avoid clumps, mix vanilla pudding and some
   milk separately first.  The filling will be liquid at this stage.</p>
+
+
 <h2>Synthesis</h2>
+
+
 <p>Butter the baking pan, coat with flour or breadcrumbs.  Use
   approx. half of the dough for the bottom, and half for the sides.
   Pull the sides approx. 4cm high.  Now pour the filling into the raw
   crust.  Bake at 175°C for 75 minutes; if necessary, cover the top with
   aluminum foil or baking paper to prevent excessive browning.  Let the
   cake cool over night.  Tastes best after a day.</p>
+
+
 <h2>Discussion</h2>
+
+
 <ul>
   <li>The dough stretched quite thin first, but in the oven it expanded to the right size.</li>
   <li>The crust came out too poofy for my preferences.</li>
@@ -62,6 +83,7 @@
 </ul>
 
 
+<p></p>
 ]]></content>
   </entry>
   
