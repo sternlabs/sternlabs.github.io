@@ -4,6 +4,8 @@
 #+comments: true
 #+categories: kitchen
 
+[[/images/apple-cake-slice.jpg]]
+
 Recipe for apple cake.  For a 26cm diameter baking pan.
 
 #+HTML: <!-- more -->
