@@ -7,6 +7,7 @@
 
 Recipe for a German cheesecake using /Quark/.  For a 26cm diameter baking pan.
 
+#+HTML: <!-- more -->
 
 ** Crust
 
@@ -15,7 +16,7 @@ Recipe for a German cheesecake using /Quark/.  For a 26cm diameter baking pan.
 - 60g butter
 - 7g baking powder
 - 1 egg
-- 1 pinch of salt
+- pinch of salt
 
 Mix thoroughly.  Experience shows to best start with sugar + butter,
 then blend in the rest.  The dough will be /very/ dry; it should just
