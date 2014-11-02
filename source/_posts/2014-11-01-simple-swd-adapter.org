@@ -1,0 +1,69 @@
+#+layout: post
+#+title: Simple SWD adapter
+#+date: 2014-11-01 12:46:13 +0100
+#+comments: true
+#+categories:
+#+author: Simon Schubert
+#+published: false
+
+This is the project log of a simple SWD adapter.  Unfortunately there
+are not many easily usable open source SWD adapters out there, and the
+commercial ones are expensive and inconvenient to use.
+
+Let's start by defining the requirements.
+
+** Requirements
+- small
+- cheap
+- USB
+- ARM core
+- hardware accelerated SWD
+- UART/SWO support
+- hardware accelerated JTAG
+
+
+*** MCU selection
+Let's select the MCU first.  I already wrote a [[https://github.com/mchck/mchck/tree/master/toolchain/lib/usb][USB library]] for the [[https://mchck.org/][MC
+HCK]], which is based on a Freescale Kinetis ARM core.  Also, the KL26
+MCUs are available in small (QFN32), and cheap.  It is also easy to
+find, using my favorite component selection strategy: [[http://www.digikey.com/product-search/en/integrated-circuits-ics/embedded-microcontrollers/2556109?k%3Darm%2520usb][search for ARM
+MCU microcontrollers on DigiKey]], [[http://www.digikey.com/product-search/en?FV%3Dfff40027%252Cfff800cd&k%3Darm%2Busb&mnonly%3D0&newproducts%3D0&ColumnSort%3D1000011&page%3D1&stock%3D0&pbfree%3D0&rohs%3D0&quantity%3D100&ptm%3D0&fid%3D0&pageSize%3D25][enter 100 quantity and sort by
+price]] :).  All discussion forward will reference the [[http://cache.freescale.com/files/microcontrollers/doc/ref_manual/KL26P121M48SF4RM.pdf][MKL26ZxxVFM4]].
+
+
+** Design planing
+I have to admit (to myself), that I'm a bit obsessive, and I keep
+trying to squeeze in functionality as elegantly as possible.  So let's
+try it here as well.
+
+*** Pin assignments
+I start by reviewing the pin assignments possible.  The Kinetis chips
+do not have a full crossbar, so only specific combinations are
+possible.
+
+Our [[http://infocenter.arm.com/help/index.jsp?topic%3D/com.arm.doc.ddi0314h/Chdhbiad.html][standard ARM CoreSight 10 pin SWD/JTAG header]] will have the following pinout:
+
+| Pin | Pin Name        | JTAG             | SWD                 | UART        | Peripheral         |
+|-----+-----------------+------------------+---------------------+-------------+--------------------|
+|   1 | VTref           | sense target Vdd | sense target Vdd    |             | analog in          |
+|   2 | TMS/SWDIO       | to target, slow  | bidirectional, fast |             | SPI MISO, SPI MOSI |
+|   4 | TCK/SWDCLK      | clock            | clock               |             | SPI CLK            |
+|   6 | TDO/SWO/UART TX | data from target | SWO, optional       | from target | SPI MISO, UART RX  |
+|   8 | TDI/UART RX     | data to target   |                     | to target   | SPI MOSI, UART TX  |
+|   9 | GNDdetect       |                  |                     |             | open drain         |
+|  10 | nRESET          | target reset     | target reset        |             | GPIO               |
+
+Let's start with pins 6 and 8 of the connector: There is a pin on the
+KL26 (PTD6) that can be both SPI MISO (=ALT5=) and UART RX (=ALT3=),
+and a pin that goes the other way (PTD7), with SPI MOSI and UART TX.
+
+So, let's try this preliminary pin assignment:
+
+| Adapter Pin     | KL26 Pins  | KL26 Functions             | KL26 QFN32 Pin |
+|-----------------+------------+----------------------------+----------------|
+| VTref           | PTC2       | ADC0_SE11                  | 23             |
+| TMS/SWDIO       | PTC6, PTC7 | GPIO, SPI0_MOSI, SPI0_MISO | 27, 28         |
+| TCK/SWDCLK      | PTC5, PTD5 | SPI0_SCK, SPI1_SCK         | 26, 30         |
+| TDO/SWO/UART TX | PTD7       | SPI1_MOSI, UART0_RX        | 32             |
+| TDI/UART RX     | PTD6       | SPI1_MISO, UART0_TX        | 31             |
+| nRESET          | PTE0       | GPIO                       | 1              |
