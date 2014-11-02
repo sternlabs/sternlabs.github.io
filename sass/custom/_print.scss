@@ -1,0 +1,36 @@
+@media only print {
+    html {
+        font-size: 10pt;
+    }
+
+    html, body > div, body > div > div, body > header, body > footer {
+        background: none !important;
+        border: none !important;
+    }
+
+    body > header {
+        h1, h2 {
+            a, a:visited, a:hover {
+                color: $text_color;
+                text-decoration: none;
+            }
+        }
+    }
+
+    a, a:visited, a:hover {
+        color: $text_color;
+        text-decoration: none;
+    }
+
+    body > nav, .sidebar, .sharing, .meta-nav {
+        display: none;
+    }
+
+    article > footer {
+        padding-bottom: 0;
+    }
+
+    body > footer {
+        margin-bottom: 0;
+    }
+}
