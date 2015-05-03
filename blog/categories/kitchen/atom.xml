@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Kitchen | SternLabs]]></title>
+  <title><![CDATA[Category: Kitchen | Sternlabs]]></title>
   <link href="https://sternlabs.github.io/blog/categories/kitchen/atom.xml" rel="self"/>
   <link href="https://sternlabs.github.io/"/>
-  <updated>2014-11-02T21:29:20+01:00</updated>
+  <updated>2015-05-03T18:35:43+02:00</updated>
   <id>https://sternlabs.github.io/</id>
   <author>
-    <name><![CDATA[]]></name>
+    <name><![CDATA[Sternlabs]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>

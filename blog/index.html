@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sternlabs</title>
+  <meta name="author" content="Sternlabs">
+
+  
+  <meta name="description" content="This is the project log of a simple SWD adapter. Unfortunately there are not many easily usable open source SWD adapters out there, and the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://sternlabs.github.io/blog">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sternlabs" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=Rajdhani:400,600|Lato:400,700,400italic,700italic|Inconsolata:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sternlabs</a></h1>
+  
+    <h2>custom electronics and software.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://startpage.com" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sternlabs.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/02/simple-swd-adapter/">Simple SWD Adapter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-02T13:14:10+01:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<p>This is the project log of a simple SWD adapter.  Unfortunately there
+  are not many easily usable open source SWD adapters out there, and the
+  commercial ones are expensive and inconvenient to use.</p>
+<p>Let&#8217;s start by defining the requirements.</p>
+<h2>Requirements</h2>
+<ul>
+  <li>small</li>
+  <li>cheap</li>
+  <li>USB</li>
+  <li>ARM core</li>
+  <li>hardware accelerated SWD</li>
+  <li>UART/SWO support</li>
+  <li>hardware accelerated JTAG</li>
+</ul>
+<h3>MCU selection</h3>
+<p>Let&#8217;s select the MCU first.  I already wrote a <a href="https://github.com/mchck/mchck/tree/master/toolchain/lib/usb">USB library</a> for the <a href="https://mchck.org/">MC
+  HCK</a>, which is based on a Freescale Kinetis ARM core.  Also, the KL26
+  MCUs are available in small (QFN32), and cheap.  It is also easy to
+  find, using my favorite component selection strategy: <a href="http://www.digikey.com/product-search/en/integrated-circuits-ics/embedded-microcontrollers/2556109?k%3Darm%2520usb">search for ARM
+  MCU microcontrollers on DigiKey</a>, <a href="http://www.digikey.com/product-search/en?FV%3Dfff40027%252Cfff800cd&amp;k%3Darm%2Busb&amp;mnonly%3D0&amp;newproducts%3D0&amp;ColumnSort%3D1000011&amp;page%3D1&amp;stock%3D0&amp;pbfree%3D0&amp;rohs%3D0&amp;quantity%3D100&amp;ptm%3D0&amp;fid%3D0&amp;pageSize%3D25">enter 100 quantity and sort by
+  price</a> :).  All discussion forward will reference the <a href="http://cache.freescale.com/files/microcontrollers/doc/ref_manual/KL26P121M48SF4RM.pdf">MKL26ZxxVFM4</a>.</p>
+<h2>Design planing</h2>
+<p>I have to admit (to myself), that I&#8217;m a bit obsessive, and I keep
+  trying to squeeze in functionality as elegantly as possible.  So let&#8217;s
+  try it here as well.</p>
+<h3>Pin assignments</h3>
+<p>I start by reviewing the pin assignments possible.  The Kinetis chips
+  do not have a full crossbar, so only specific combinations are
+  possible.</p>
+<p>Our <a href="http://infocenter.arm.com/help/index.jsp?topic%3D/com.arm.doc.ddi0314h/Chdhbiad.html">standard ARM CoreSight 10 pin SWD/JTAG header</a> will have the following pinout:</p>
+<table>
+  <tr><th>Pin</th><th>Pin Name</th><th>JTAG</th><th>SWD</th><th>UART</th><th>Peripheral</th></tr>
+  <tr><td>1</td><td>VTref</td><td>sense target Vdd</td><td>sense target Vdd</td><td></td><td>analog in</td></tr>
+  <tr><td>2</td><td>TMS/SWDIO</td><td>to target, slow</td><td>bidirectional, fast</td><td></td><td>SPI MISO, SPI MOSI</td></tr>
+  <tr><td>4</td><td>TCK/SWDCLK</td><td>clock</td><td>clock</td><td></td><td>SPI CLK</td></tr>
+  <tr><td>6</td><td>TDO/SWO/UART TX</td><td>data from target</td><td>SWO, optional</td><td>from target</td><td>SPI MISO, UART RX</td></tr>
+  <tr><td>8</td><td>TDI/UART RX</td><td>data to target</td><td></td><td>to target</td><td>SPI MOSI, UART TX</td></tr>
+  <tr><td>9</td><td>GNDdetect</td><td></td><td></td><td></td><td>open drain</td></tr>
+  <tr><td>10</td><td>nRESET</td><td>target reset</td><td>target reset</td><td></td><td>GPIO</td></tr>
+</table>
+<p>Let&#8217;s start with pins 6 and 8 of the connector: There is a pin on the
+  KL26 (PTD6) that can be both SPI MISO (<code>ALT5</code>) and UART RX (<code>ALT3</code>),
+  and a pin that goes the other way (PTD7), with SPI MOSI and UART TX.</p>
+<p>So, let&#8217;s try this preliminary pin assignment:</p>
+<table>
+  <tr><th>Adapter Pin</th><th>KL26 Pins</th><th>KL26 Functions</th><th>KL26 QFN32 Pin</th></tr>
+  <tr><td>VTref</td><td>PTC2</td><td>ADC0_SE11</td><td>23</td></tr>
+  <tr><td>TMS/SWDIO</td><td>PTC6, PTC7</td><td>GPIO, SPI0_MOSI, SPI0_MISO</td><td>27, 28</td></tr>
+  <tr><td>TCK/SWDCLK</td><td>PTC5, PTD5</td><td>SPI0_SCK, SPI1_SCK</td><td>26, 30</td></tr>
+  <tr><td>TDO/SWO/UART TX</td><td>PTD7</td><td>SPI1_MOSI, UART0_RX</td><td>32</td></tr>
+  <tr><td>TDI/UART RX</td><td>PTD6</td><td>SPI1_MISO, UART0_TX</td><td>31</td></tr>
+  <tr><td>nRESET</td><td>PTE0</td><td>GPIO</td><td>1</td></tr>
+</table>
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/20/apple-cake/">Apple Cake</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-10-20T02:54:32+02:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<p><img src="/images/apple-cake-slice.jpg" alt="/images/apple-cake-slice.jpg" /></p>
+<p>Recipe for apple cake.  For a 26cm diameter baking pan.</p>
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/20/apple-cake/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/20/german-cheesecake/">German Cheesecake</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-10-20T01:07:23+02:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<p>Recipe for a German cheesecake using <i>Quark</i>.  For a 26cm diameter baking pan.</p>
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/20/german-cheesecake/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/sternlabs">@sternlabs</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sternlabs',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Sternlabs -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
